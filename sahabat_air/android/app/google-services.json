@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "423487594760",
+    "project_id": "sahabatair-a1874",
+    "storage_bucket": "sahabatair-a1874.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423487594760:android:c2217011d250dbf0284cbd",
+        "android_client_info": {
+          "package_name": "com.example.sahabat_air"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423487594760-e3qlhjtpevqv8rpuvr1lfpigtsdh00pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqeJyy6MgeuC8pxrQeRHSXAGTDvIVNWF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423487594760-e3qlhjtpevqv8rpuvr1lfpigtsdh00pp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "423487594760-fkijta9f8j331vj6kpfi8ko5h6hq51jc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sahabatAir"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
