@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sahabat_air/ui/phone_auth_screen.dart';
 import 'home_screen.dart';
-import 'phone_auth_screen.dart';
+import 'complete_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/login/login_cubit.dart';
@@ -70,7 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ));
             }
             if (state is LoginSuccess) {
-              // context.read<AuthCubit>().loggedIn();
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
@@ -79,6 +79,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ));
               Navigator.pushNamedAndRemoveUntil(
                   context, rHome, (route) => false);
+            }
+            if (state is LoginCompleteProfile) {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, rCompleteProfile, (route) => false);
             }
           },
           child: Container(

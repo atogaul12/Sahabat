@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../ui/home_screen.dart';
 import '../ui/login.dart';
 import '../ui/register.dart';
+import '../ui/complete_profile.dart';
 
 MaterialPageRoute _pageRoute(
         {required Widget body, required RouteSettings settings}) =>
@@ -21,6 +22,9 @@ Route? generateRoute(RouteSettings settings) {
     case rHome:
       _route = _pageRoute(body: HomeScreen(), settings: settings);
       break;
+    case rCompleteProfile:
+      _route = _pageRoute(body: CompleteProfileScreen(), settings: settings);
+      break;
   }
   return _route;
 }
@@ -29,3 +33,4 @@ final NAV_KEY = GlobalKey<NavigatorState>();
 const String rLogin = '/login';
 const String rRegister = '/register';
 const String rHome = '/home';
+const String rCompleteProfile = '/complete_profile';

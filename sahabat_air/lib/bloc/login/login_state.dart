@@ -18,3 +18,5 @@ class LoginFailure extends LoginState {
 
   LoginFailure(this.msg);
 }
+
+class LoginCompleteProfile extends LoginState {} // Tambahkan ini
