@@ -24,14 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Praktikum",
+                "Sahabat",
                 style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     color: Color(0xff3D4DE0)),
               ),
               Text(
-                "PPB",
+                "Air",
                 style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
