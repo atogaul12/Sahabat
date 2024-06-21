@@ -69,23 +69,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text(
                   "Register",
                   style: TextStyle(
-<<<<<<< HEAD
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 34, 97, 206),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "Silahkan masukan e-mail dan password anda",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                SizedBox(
-=======
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 34, 97, 206)),
@@ -100,7 +83,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(
->>>>>>> ae47335028ab4793b2fe5e7e6ada57e64cbdf9e0
                   height: 25,
                 ),
                 TextFormField(
@@ -121,11 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     labelText: 'Password',
                     hintText: 'Masukkan password anda',
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
-<<<<<<< HEAD
-                    border: OutlineInputBorder(),
-=======
                     border: const OutlineInputBorder(),
->>>>>>> ae47335028ab4793b2fe5e7e6ada57e64cbdf9e0
                     suffixIcon: IconButton(
                       icon: Icon(passInvisible
                           ? Icons.visibility
@@ -174,14 +152,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Text(
                           "Login",
                           style: TextStyle(
-<<<<<<< HEAD
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 34, 97, 206),
-                          ),
-=======
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 34, 97, 206)),
->>>>>>> ae47335028ab4793b2fe5e7e6ada57e64cbdf9e0
                         ))
                   ],
                 )
