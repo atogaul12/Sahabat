@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "423487594760-grkd0s6b6bvlpkihq6id2eqgsb2rgob7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sahabat_air",
+            "certificate_hash": "40222ab0b2caa2333ed4771cb2e71453f445aa58"
+          }
+        },
+        {
           "client_id": "423487594760-e3qlhjtpevqv8rpuvr1lfpigtsdh00pp.apps.googleusercontent.com",
           "client_type": 3
         }
