@@ -124,6 +124,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     labelText: 'Password',
                     hintText: 'Masukkan password anda',
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
+<<<<<<< HEAD
+=======
+                    border: const OutlineInputBorder(),
+>>>>>>> ae47335028ab4793b2fe5e7e6ada57e64cbdf9e0
                     suffixIcon: IconButton(
                       icon: Icon(passInvisible
                           ? Icons.visibility
@@ -134,12 +138,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       },
                     ),
+<<<<<<< HEAD
                     border: OutlineInputBorder(),
+=======
+>>>>>>> ae47335028ab4793b2fe5e7e6ada57e64cbdf9e0
                   ),
                   obscureText: !passInvisible,
                 ),
                 SizedBox(
+<<<<<<< HEAD
                   height: 30,
+=======
+                  height: 50,
+>>>>>>> ae47335028ab4793b2fe5e7e6ada57e64cbdf9e0
                 ),
                 ElevatedButton(
                     onPressed: () {
@@ -159,10 +170,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white),
                     )),
                 SizedBox(
+<<<<<<< HEAD
                   height: 15,
                 ),
                 const SizedBox(
                   height: 10.0,
+=======
+                  height: 25,
+                ),
+                const SizedBox(
+                  height: 30.0,
+>>>>>>> ae47335028ab4793b2fe5e7e6ada57e64cbdf9e0
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
