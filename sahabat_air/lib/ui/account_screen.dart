@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sahabat_air/ui/history_screen.dart';
 import 'package:sahabat_air/ui/home_screen.dart';
 import 'package:sahabat_air/ui/order_screen.dart';
+import 'package:sahabat_air/ui/profile_screen.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen> {
   int _selectedIndex = 3; // Index for AccountScreen is 3
+  String userName = "Pengguna";
 
   void _onItemTapped(int index) {
     if (index != _selectedIndex) {
@@ -42,9 +45,36 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      if (doc.exists) {
+        final data = doc.data();
+        setState(() {
+          userName = data?['name'] ?? user.displayName ?? "Pengguna";
+        });
+      }
+    }
+  }
+
+  void _updateUserName(String newName) {
+    setState(() {
+      userName = newName;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    final userName = user != null ? user.displayName ?? "Pengguna" : "Pengguna";
     final userEmail =
         user != null ? user.email ?? "email@contoh.com" : "email@contoh.com";
     final userPhotoUrl = user != null && user.photoURL != null
@@ -69,7 +99,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     children: [
                       CircleAvatar(
                         radius: 40,
-                        backgroundImage: AssetImage('assets/default_profile.png'),
+                        backgroundImage:
+                            AssetImage('assets/default_profile.png'),
                       ),
                       SizedBox(width: 16),
                       Column(
@@ -102,7 +133,14 @@ class _AccountScreenState extends State<AccountScreen> {
                   title: Text('Profil Saya'),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Aksi untuk membuka halaman profil
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(
+                          onNameChanged: _updateUserName,
+                        ),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
