@@ -3,6 +3,9 @@ import '../ui/home_screen.dart';
 import '../ui/login.dart';
 import '../ui/register.dart';
 import '../ui/complete_profile.dart';
+import '../ui/news_screen.dart';
+import '../ui/news_detail_screen.dart';
+import '../models/news_model.dart';
 
 MaterialPageRoute _pageRoute(
         {required Widget body, required RouteSettings settings}) =>
@@ -25,6 +28,14 @@ Route? generateRoute(RouteSettings settings) {
     case rCompleteProfile:
       _route = _pageRoute(body: CompleteProfileScreen(), settings: settings);
       break;
+    case rNews:
+      _route = _pageRoute(body: NewsScreen(), settings: settings);
+      break;
+    case rNewsDetail:
+      if (_args is News) {
+        _route = _pageRoute(body: NewsDetailScreen(news: _args), settings: settings);
+      }
+      break;
   }
   return _route;
 }
@@ -34,3 +45,5 @@ const String rLogin = '/login';
 const String rRegister = '/register';
 const String rHome = '/home';
 const String rCompleteProfile = '/complete_profile';
+const String rNews = '/news';
+const String rNewsDetail = '/news_detail';
