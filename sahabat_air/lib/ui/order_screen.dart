@@ -48,8 +48,40 @@ class _OrderScreenState extends State<OrderScreen> {
         title: Text('Pemesanan'),
         automaticallyImplyLeading: false,
       ),
-      body: Center(
-        child: Text('Halaman Pemesanan'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Pilih Produk',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 10, // Ganti dengan jumlah produk yang sebenarnya
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: ListTile(
+                      leading: Icon(Icons.local_drink),
+                      title: Text('Produk ${index + 1}'),
+                      subtitle: Text('Deskripsi produk ${index + 1}'),
+                      trailing: Icon(Icons.add_shopping_cart),
+                      onTap: () {
+                        // Aksi ketika item dipilih
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
