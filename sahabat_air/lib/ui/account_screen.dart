@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sahabat_air/ui/history_screen.dart';
 import 'package:sahabat_air/ui/home_screen.dart';
 import 'package:sahabat_air/ui/order_screen.dart';
@@ -16,6 +16,9 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   int _selectedIndex = 3; // Index for AccountScreen is 3
   String userName = "Pengguna";
+  String userEmail = "email@contoh.com";
+  String userPhone = "No Telepon";
+  String userAddress = "Alamat";
 
   void _onItemTapped(int index) {
     if (index != _selectedIndex) {
@@ -60,26 +63,24 @@ class _AccountScreenState extends State<AccountScreen> {
       if (doc.exists) {
         final data = doc.data();
         setState(() {
-          userName = data?['name'] ?? user.displayName ?? "Pengguna";
+          userName = data?['name'] ?? "Pengguna";
+          userEmail = data?['email'] ?? "email@contoh.com";
+          userPhone = data?['phone'] ?? "No Telepon";
+          userAddress = data?['address'] ?? "Alamat";
         });
       }
     }
   }
 
-  void _updateUserName(String newName) {
+  void _updateUserName(String name) {
     setState(() {
-      userName = newName;
+      userName = name;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-    final userEmail =
-        user != null ? user.email ?? "email@contoh.com" : "email@contoh.com";
-    final userPhotoUrl = user != null && user.photoURL != null
-        ? NetworkImage(user.photoURL!)
-        : const AssetImage('assets/default_profile.png');
+    final userPhotoUrl = const AssetImage('assets/default_profile.png');
 
     return Scaffold(
       appBar: AppBar(
@@ -136,9 +137,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfileScreen(
-                          onNameChanged: _updateUserName,
-                        ),
+                        builder: (context) =>
+                            ProfileScreen(onNameChanged: _updateUserName),
                       ),
                     );
                   },

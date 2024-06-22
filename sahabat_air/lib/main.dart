@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sahabat_air/ui/register.dart';
 import 'bloc/login/login_cubit.dart';
 import 'bloc/register/register_cubit.dart';
 import 'firebase_options.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           '/history': (context) => const HistoryScreen(),
           '/account': (context) => const AccountScreen(),
           '/login': (context) => const LoginScreen(),
+          '/register': (context) => const RegisterScreen(),
         },
         onGenerateRoute: (settings) {
           switch (settings.name) {
