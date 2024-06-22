@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sahabat_air/ui/news_screen.dart';
-import 'package:sahabat_air/ui/promo_screen.dart';
 import 'package:sahabat_air/ui/order_screen.dart';
 import 'package:sahabat_air/ui/history_screen.dart';
 import 'package:sahabat_air/ui/account_screen.dart';

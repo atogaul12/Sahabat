@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sahabat_air/ui/account_screen.dart';
+import 'package:sahabat_air/ui/order_screen.dart';
 import 'ui/home_screen.dart';
 import 'ui/login.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -48,6 +50,11 @@ class MyApp extends StatelessWidget {
             }
           },
         ),
+        routes: {
+          '/home': (context) => HomeScreen(),
+          '/orders': (context) => OrderScreen(),
+          '/account': (context) => AccountScreen(),
+        },
       ),
     );
   }
