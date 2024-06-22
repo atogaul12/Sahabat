@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'home_screen.dart';
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
 
 class PhoneAuthScreen extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
     _otpController.dispose();
     super.dispose();
   }
-  
+
   void loginWithPhone() async {
     auth.verifyPhoneNumber(
       phoneNumber: "+62" + _phoneController.text,
@@ -75,8 +75,6 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +108,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
             MaterialButton(
               color: const Color(0xff3D4DE0),
               onPressed: () {
-              if (otpVisibility) {
+                if (otpVisibility) {
                   verifyOTP();
                 } else {
                   loginWithPhone();

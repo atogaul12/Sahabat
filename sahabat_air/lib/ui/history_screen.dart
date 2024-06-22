@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:sahabat_air/ui/account_screen.dart';
-import 'package:sahabat_air/ui/history_screen.dart';
+import 'package:sahabat_air/ui/home_screen.dart';
 import 'package:sahabat_air/ui/order_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HistoryScreenState createState() => _HistoryScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+class _HistoryScreenState extends State<HistoryScreen> {
+  int _selectedIndex = 2; // Index for HistoryScreen is 2
 
   void _onItemTapped(int index) {
     if (index != _selectedIndex) {
+      setState(() {
+        _selectedIndex = index;
+      });
+
       switch (index) {
         case 0:
-          break; // Stay on current page
+          Navigator.pushReplacement(
+              context, noAnimationPageRoute(const HomeScreen()));
+          break;
         case 1:
           Navigator.pushReplacement(
               context, noAnimationPageRoute(const OrderScreen()));
@@ -39,11 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 34, 97, 206),
-        title: Text('Home'),
+        title: Text('Riwayat'),
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Text('Halaman Home'),
+        child: Text('Halaman Riwayat'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/register/register_cubit.dart';
-
 import '../utils/routes.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -15,6 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailEdc = TextEditingController();
   final passEdc = TextEditingController();
   bool passInvisible = false;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,17 +41,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(content: Text('Loading..')));
-            }
-            if (state is RegisterFailure) {
+            } else if (state is RegisterFailure) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
                   content: Text(state.msg),
                   backgroundColor: Colors.red,
                 ));
-            }
-            if (state is RegisterSuccess) {
-              // context.read<AuthCubit>().loggedIn();
+            } else if (state is RegisterSuccess) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
