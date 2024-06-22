@@ -49,21 +49,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (user != null) {
       final docRef =
           FirebaseFirestore.instance.collection('users').doc(user.uid);
-      final doc = await docRef.get();
-      if (doc.exists) {
-        await docRef.update({field: value});
-        if (field == 'name') {
-          widget.onNameChanged(value);
-        }
-      } else {
-        await docRef.set({field: value}, SetOptions(merge: true));
-        if (field == 'name') {
-          widget.onNameChanged(value);
-        }
+      await docRef.update({field: value});
+      if (field == 'name') {
+        widget.onNameChanged(value);
       }
-      print('Data updated successfully: $field: $value');
-    } else {
-      print('User not logged in');
     }
   }
 
