@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sahabat_air/ui/home_screen.dart';
-import 'package:sahabat_air/ui/history_screen.dart';
 import 'package:sahabat_air/ui/account_screen.dart';
+import 'package:sahabat_air/ui/history_screen.dart';
+import 'package:sahabat_air/ui/home_screen.dart';
 
 class OrderScreen extends StatefulWidget {
+  const OrderScreen({Key? key}) : super(key: key);
+
   @override
   _OrderScreenState createState() => _OrderScreenState();
 }
@@ -20,27 +22,19 @@ class _OrderScreenState extends State<OrderScreen> {
       switch (index) {
         case 0:
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-          );
+              context, noAnimationPageRoute(const HomeScreen()));
           break;
         case 1:
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => OrderScreen()),
-          );
+              context, noAnimationPageRoute(const OrderScreen()));
           break;
         case 2:
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HistoryScreen()),
-          );
+              context, noAnimationPageRoute(const HistoryScreen()));
           break;
         case 3:
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => AccountScreen()),
-          );
+              context, noAnimationPageRoute(const AccountScreen()));
           break;
       }
     }
@@ -52,9 +46,10 @@ class _OrderScreenState extends State<OrderScreen> {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 34, 97, 206),
         title: Text('Pemesanan'),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Text('Konten Pemesanan'),
+        child: Text('Halaman Pemesanan'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -83,4 +78,15 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
     );
   }
+}
+
+PageRouteBuilder noAnimationPageRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionDuration: Duration.zero,
+    reverseTransitionDuration: Duration.zero,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return child;
+    },
+  );
 }

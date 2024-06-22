@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sahabat_air/ui/history_screen.dart';
 import 'package:sahabat_air/ui/home_screen.dart';
 import 'package:sahabat_air/ui/order_screen.dart';
-import 'package:sahabat_air/ui/history_screen.dart';
-import 'package:sahabat_air/ui/account_screen.dart';
 
 class AccountScreen extends StatefulWidget {
+  const AccountScreen({Key? key}) : super(key: key);
+
   @override
   _AccountScreenState createState() => _AccountScreenState();
 }
@@ -22,27 +23,19 @@ class _AccountScreenState extends State<AccountScreen> {
       switch (index) {
         case 0:
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-          );
+              context, noAnimationPageRoute(const HomeScreen()));
           break;
         case 1:
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => OrderScreen()),
-          );
+              context, noAnimationPageRoute(const OrderScreen()));
           break;
         case 2:
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HistoryScreen()),
-          );
+              context, noAnimationPageRoute(const HistoryScreen()));
           break;
         case 3:
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => AccountScreen()),
-          );
+              context, noAnimationPageRoute(const AccountScreen()));
           break;
       }
     }
@@ -55,19 +48,19 @@ class _AccountScreenState extends State<AccountScreen> {
     final userEmail =
         user != null ? user.email ?? "email@contoh.com" : "email@contoh.com";
     final userPhotoUrl = user != null && user.photoURL != null
-        ? user.photoURL!
-        : 'assets/default_profile.png';
+        ? NetworkImage(user.photoURL!)
+        : const AssetImage('assets/default_profile.png');
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 34, 97, 206),
         title: Text('Akun'),
+        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
-            padding: EdgeInsets.only(
-                bottom: 80), // Add padding to avoid overlap with the button
+            padding: EdgeInsets.only(bottom: 80),
             child: Column(
               children: [
                 Container(
@@ -76,7 +69,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     children: [
                       CircleAvatar(
                         radius: 40,
-                        backgroundImage: NetworkImage(userPhotoUrl),
+                        backgroundImage: AssetImage('assets/default_profile.png'),
                       ),
                       SizedBox(width: 16),
                       Column(
@@ -151,8 +144,8 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                  // Aksi untuk keluar
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/login', (Route<dynamic> route) => false);
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -194,4 +187,15 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
     );
   }
+}
+
+PageRouteBuilder noAnimationPageRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionDuration: Duration.zero,
+    reverseTransitionDuration: Duration.zero,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return child;
+    },
+  );
 }
