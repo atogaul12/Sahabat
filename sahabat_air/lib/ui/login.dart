@@ -1,10 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-<<<<<<< HEAD
-import 'package:sahabat_air/ui/phone_auth_screen.dart';
-import 'home_screen.dart';
-import 'complete_profile.dart';
-=======
->>>>>>> 50b6291d45675841081e6a3830adf30598b6da2e
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -41,63 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Color.fromARGB(255, 34, 97, 206),
-            ),
-          ),
-          labelStyle: TextStyle(
-            color: Colors.grey, // Default label color
-          ),
-          floatingLabelStyle: TextStyle(
-            color: Color.fromARGB(255, 34, 97, 206), // Label color when focused
-          ),
-        ),
-      ),
-      home: Scaffold(
-        body: BlocListener<LoginCubit, LoginState>(
-          listener: (context, state) {
-            if (state is LoginLoading) {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(content: Text('Loading..')));
-            }
-            if (state is LoginFailure) {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(
-                  content: Text(state.msg),
-                  backgroundColor: Colors.red,
-                ));
-            }
-            if (state is LoginSuccess) {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(
-                  content: Text(state.msg),
-                  backgroundColor: Colors.green,
-                ));
-              Navigator.pushNamedAndRemoveUntil(
-                  context, rHome, (route) => false);
-            }
-            if (state is LoginCompleteProfile) {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, rCompleteProfile, (route) => false);
-            }
-          },
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 30, vertical: 70),
-            child: ListView(
-              children: [
-                Text(
-                  "SAHABAT AIR",
-                  textAlign: TextAlign.center,
-=======
     return Scaffold(
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
@@ -180,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Text(
                   "Login",
->>>>>>> 50b6291d45675841081e6a3830adf30598b6da2e
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,

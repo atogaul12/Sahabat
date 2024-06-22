@@ -1,10 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-<<<<<<< HEAD
-import 'ui/home_screen.dart';
-import 'ui/login.dart';
-import 'ui/complete_profile.dart';
-=======
->>>>>>> 50b6291d45675841081e6a3830adf30598b6da2e
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
