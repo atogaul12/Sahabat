@@ -26,7 +26,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
   void loginWithPhone() async {
     auth.verifyPhoneNumber(
       phoneNumber: "+62" + _phoneController.text,
-      timeout: const Duration(seconds: 60),
+      timeout: const Duration(seconds: 120),
       verificationCompleted: (PhoneAuthCredential credential) async {
         await auth.signInWithCredential(credential).then((value) {
           print("You are logged in successfully");

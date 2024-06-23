@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sahabat_air/repositories/auth_repo.dart';
 import 'package:sahabat_air/ui/home_screen.dart';
 import 'package:sahabat_air/ui/phone_auth_screen.dart';
 import '../bloc/login/login_cubit.dart';
@@ -19,19 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final passEdc = TextEditingController();
   bool passInvisible = true;
 
-  Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: gAuth.accessToken,
-      idToken: gAuth.idToken,
-    );
-    return await FirebaseAuth.instance.signInWithCredential(credential).then(
-        (value) async => await Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            (route) => false));
-  }
+  final _authRepo = AuthRepo();
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           if (state is LoginSuccess) {
             Navigator.pushNamedAndRemoveUntil(context, rHome, (route) => false);
-          }
-          if (state is LoginCompleteProfile) {
-            // Arahkan pengguna ke halaman melengkapi profil
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/completeProfile', (route) => false);
           }
         },
         child: Container(
@@ -135,8 +118,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      signInWithGoogle();
+                    onTap: () async {
+                      try {
+                        await _authRepo.loginWithGoogle();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, rHome, (route) => false);
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Login dengan Google gagal.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     },
                     child: const CircleAvatar(
                       radius: 20.0,

@@ -71,7 +71,9 @@ class _OrderScreenState extends State<OrderScreen> {
   void _placeOrder() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      if (_quantity > 0 && _name != "" && _address != "") {
+      if (_quantity > 0 &&
+          (_name != "" && _name != "Nama belum diisi") &&
+          (_address != "" && _address != "Alamat belum diisi")) {
         final orderId =
             FirebaseFirestore.instance.collection('orders').doc().id;
         await FirebaseFirestore.instance.collection('orders').doc(orderId).set({

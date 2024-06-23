@@ -80,7 +80,10 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userPhotoUrl = const AssetImage('assets/default_profile.png');
+    final user = FirebaseAuth.instance.currentUser;
+    final userPhotoUrl = user != null && user.photoURL != null
+        ? NetworkImage(user.photoURL!)
+        : const AssetImage('assets/default_profile.png');
 
     return Scaffold(
       appBar: AppBar(
@@ -108,8 +111,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     children: [
                       CircleAvatar(
                         radius: 40,
-                        backgroundImage:
-                            AssetImage('assets/default_profile.png'),
+                        backgroundImage: userPhotoUrl as ImageProvider,
                       ),
                       SizedBox(width: 16),
                       Column(
