@@ -3,7 +3,6 @@ import '../ui/home_screen.dart';
 import '../ui/login.dart';
 import '../ui/register.dart';
 import '../ui/complete_profile.dart';
-import '../ui/news_screen.dart';
 import '../ui/news_detail_screen.dart';
 import '../models/news_model.dart';
 
@@ -28,12 +27,10 @@ Route? generateRoute(RouteSettings settings) {
     case rCompleteProfile:
       _route = _pageRoute(body: CompleteProfileScreen(), settings: settings);
       break;
-    case rNews:
-      _route = _pageRoute(body: NewsScreen(), settings: settings);
-      break;
     case rNewsDetail:
       if (_args is News) {
-        _route = _pageRoute(body: NewsDetailScreen(news: _args), settings: settings);
+        _route =
+            _pageRoute(body: NewsDetailScreen(news: _args), settings: settings);
       }
       break;
   }
