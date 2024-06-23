@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginLoading) {
@@ -44,29 +45,43 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 30, vertical: 70),
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: ListView(
             children: [
-              Text(
-                "Login",
-                style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 34, 97, 206)),
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/logo.png', // Path to your logo image
+                    height: 100,
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    "Selamat Datang",
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 34, 97, 206),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Halo, selamat datang di aplikasi 'Sahabat Air'\n"
+                    "untuk masuk anda mengisi terlebih dahulu.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                ],
               ),
-              SizedBox(height: 15),
-              Text(
-                "Silahkan masukan e-mail dan password anda",
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 25),
+              SizedBox(height: 30),
               TextFormField(
                 controller: emailEdc,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   hintText: 'Masukkan email anda',
                   prefixIcon: Icon(Icons.email_outlined),
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -76,7 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   labelText: 'Password',
                   hintText: 'Masukkan password anda',
                   prefixIcon: const Icon(Icons.lock_outline_rounded),
-                  border: const OutlineInputBorder(),
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                   suffixIcon: IconButton(
                     icon: Icon(passInvisible
                         ? Icons.visibility
@@ -90,7 +107,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 obscureText: passInvisible,
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Lupa Password?",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 97, 206),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   context
@@ -102,6 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 15),
                 ),
                 child: Text(
                   "Login",
@@ -111,9 +142,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white),
                 ),
               ),
-              const SizedBox(
-                height: 30.0,
+              SizedBox(height: 20),
+              Center(
+                child: Text(
+                  "atau masuk dengan",
+                  style: TextStyle(
+                    color: Colors.black54,
+                  ),
+                ),
               ),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -132,15 +170,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       }
                     },
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       radius: 20.0,
                       backgroundImage: NetworkImage(
-                          'https://img2.pngdownload.id/20190228/qby/kisspng-google-logo-google-account-g-suite-google-images-g-icon-archives-search-png-5c77ad39b77471.9286340315513470017515.jpg'),
+                        'https://img2.pngdownload.id/20190228/qby/kisspng-google-logo-google-account-g-suite-google-images-g-icon-archives-search-png-5c77ad39b77471.9286340315513470017515.jpg',
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 30.0,
-                  ),
+                  SizedBox(width: 30),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -148,10 +185,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           MaterialPageRoute(
                               builder: (context) => PhoneAuthScreen()));
                     },
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       radius: 20.0,
                       backgroundImage: NetworkImage(
-                          'https://freepngimg.com/thumb/business/83615-blue-icons-symbol-telephone-computer-logo.png'),
+                        'https://freepngimg.com/thumb/business/83615-blue-icons-symbol-telephone-computer-logo.png',
+                      ),
                     ),
                   ),
                 ],
@@ -166,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushNamed(context, rRegister);
                     },
                     child: Text(
-                      "Register",
+                      "Daftar Sekarang",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 34, 97, 206)),
