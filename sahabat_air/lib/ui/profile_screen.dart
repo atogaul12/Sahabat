@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sahabat_air/ui/account_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final Function(String) onNameChanged;
@@ -66,7 +67,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 34, 97, 206),
-        title: Text('Profil Saya'),
+        title: Center(
+          child: Text(
+            'Profil Saya',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -130,6 +140,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 16),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 34, 97, 206),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context, noAnimationPageRoute(const AccountScreen()));
+                },
+                child: Text(
+                  'OK',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
           ],
         ),
       ),
@@ -192,7 +223,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Batal'),
+              child: Text(
+                'Batal',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 34, 97, 206),
+                ),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -202,11 +238,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 _updateUserData(field, tempController.text);
                 Navigator.of(context).pop();
               },
-              child: Text('Simpan'),
+              child: Text(
+                'Simpan',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 34, 97, 206),
+                ),
+              ),
             ),
           ],
         );
       },
     );
   }
+}
+
+PageRouteBuilder noAnimationPageRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionDuration: Duration.zero,
+    reverseTransitionDuration: Duration.zero,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return child;
+    },
+  );
 }

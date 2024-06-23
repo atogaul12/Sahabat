@@ -54,6 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccess) {
             Navigator.pushNamedAndRemoveUntil(context, rHome, (route) => false);
           }
+          if (state is LoginCompleteProfile) {
+            // Arahkan pengguna ke halaman melengkapi profil
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/completeProfile', (route) => false);
+          }
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 30, vertical: 70),

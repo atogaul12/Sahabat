@@ -85,7 +85,15 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 34, 97, 206),
-        title: Text('Akun'),
+        title: Center(
+          child: Text(
+            'Akun',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
         automaticallyImplyLeading: false,
       ),
       body: Stack(

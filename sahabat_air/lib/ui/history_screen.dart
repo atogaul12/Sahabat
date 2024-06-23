@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:sahabat_air/ui/account_screen.dart';
-import 'package:sahabat_air/ui/home_screen.dart';
-import 'package:sahabat_air/ui/order_screen.dart';
+import 'package:intl/intl.dart';
+import 'package:sahabat_air/ui/order_detail_screen.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -23,68 +22,122 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
       switch (index) {
         case 0:
-          Navigator.pushReplacement(
-              context, noAnimationPageRoute(const HomeScreen()));
+          Navigator.pushReplacementNamed(context, '/home');
           break;
         case 1:
-          Navigator.pushReplacement(
-              context, noAnimationPageRoute(const OrderScreen()));
+          Navigator.pushReplacementNamed(context, '/order');
           break;
         case 2:
-          Navigator.pushReplacement(
-              context, noAnimationPageRoute(const HistoryScreen()));
+          Navigator.pushReplacementNamed(context, '/history');
           break;
         case 3:
-          Navigator.pushReplacement(
-              context, noAnimationPageRoute(const AccountScreen()));
+          Navigator.pushReplacementNamed(context, '/account');
           break;
       }
     }
   }
 
+  Future<List<DocumentSnapshot>> _fetchOrders() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('orders')
+          .where('userId', isEqualTo: user.uid)
+          .orderBy('orderDate', descending: true)
+          .get();
+      return querySnapshot.docs;
+    }
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-    final userId = user?.uid;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 34, 97, 206),
-        title: Text('Riwayat'),
+        title: Center(
+          child: Text(
+            'Riwayat Pesanan',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
         automaticallyImplyLeading: false,
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('orders')
-            .where('userId', isEqualTo: userId)
-            .snapshots(),
+      body: FutureBuilder<List<DocumentSnapshot>>(
+        future: _fetchOrders(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('Tidak ada riwayat pemesanan'));
+
+          if (!snapshot.hasData ||
+              snapshot.data == null ||
+              snapshot.data!.isEmpty) {
+            return Center(child: Text('Tidak ada riwayat pesanan.'));
           }
-          final orders = snapshot.data!.docs;
+
+          final orders = snapshot.data!;
           return ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
               final order = orders[index].data() as Map<String, dynamic>;
-              final orderDate = order['orderDate'].toDate();
-              final formattedDate =
-                  '${orderDate.year}-${orderDate.month.toString().padLeft(2, '0')}-${orderDate.day.toString().padLeft(2, '0')}';
+              final orderId = orders[index].id;
+              final orderDateTimestamp = order['orderDate'] as Timestamp?;
+              final orderDate = orderDateTimestamp != null
+                  ? orderDateTimestamp.toDate()
+                  : null;
+              final totalPrice = order['totalPrice'] ?? 0;
+              final status = order['status'] ?? 'Tidak diketahui';
 
               return Card(
-                margin: EdgeInsets.all(8.0),
+                elevation: 4,
+                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: ListTile(
-                  leading: Icon(Icons.local_drink),
-                  title: Text('Tanggal: $formattedDate'),
-                  subtitle: Text(
-                    'Jumlah: ${order['quantity']} galon\nTotal Harga: Rp ${order['totalPrice']}',
+                  title: Text(
+                    'Order ID: $orderId',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 34, 97, 206),
+                    ),
                   ),
-                  trailing: order['status'] == 'selesai'
-                      ? Icon(Icons.check_circle, color: Colors.green)
-                      : Icon(Icons.hourglass_empty, color: Colors.red),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (orderDate != null)
+                        Text(
+                          'Tanggal: ${DateFormat('dd MMMM yyyy, HH:mm').format(orderDate)}',
+                          style: TextStyle(
+                            color: Colors.black54,
+                          ),
+                        ),
+                      Text(
+                        'Total Harga: Rp $totalPrice',
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
+                      ),
+                      Text(
+                        'Status: $status',
+                        style: TextStyle(
+                          color: status == 'Belum Dibayar'
+                              ? Colors.red
+                              : Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            OrderDetailScreen(orderId: orderId),
+                      ),
+                    );
+                  },
                 ),
               );
             },

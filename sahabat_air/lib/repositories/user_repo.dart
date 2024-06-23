@@ -9,18 +9,23 @@ class UserRepo {
     final user = _auth.currentUser;
     if (user != null) {
       final doc = await _firestore.collection('users').doc(user.uid).get();
-      return doc.exists && doc.data()!.containsKey('fullName') && doc.data()!.containsKey('address') && doc.data()!.containsKey('subscriptionNumber');
+      final data = doc.data();
+      return data != null &&
+          data['name'] != null &&
+          data['address'] != null &&
+          data['phone'] != null;
     }
     return false;
   }
 
-  Future<void> saveUserProfile(String fullName, String address, String subscriptionNumber) async {
+  Future<void> saveUserProfile(
+      String name, String address, String phone) async {
     final user = _auth.currentUser;
     if (user != null) {
-      await _firestore.collection('users').doc(user.uid).set({
-        'fullName': fullName,
+      await _firestore.collection('users').doc(user.uid).update({
+        'name': name,
         'address': address,
-        'subscriptionNumber': subscriptionNumber,
+        'phone': phone,
       });
     }
   }

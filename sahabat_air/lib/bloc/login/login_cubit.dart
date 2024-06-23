@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import '../../repositories/auth_repo.dart';
-import '../../repositories/user_repo.dart'; // Tambahkan ini
+import '../../repositories/user_repo.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
   final _repo = AuthRepo();
-  final _userRepo = UserRepo(); // Tambahkan ini
+  final _userRepo = UserRepo();
 
   void login({required String email, required String password}) async {
     emit(LoginLoading());
@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginCompleteProfile());
       }
     } catch (e) {
-      print(e);
+      print('LoginCubit login error: $e');
       emit(LoginFailure(e.toString()));
     }
   }

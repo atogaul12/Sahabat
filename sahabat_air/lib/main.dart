@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
-          '/': (context) => const InitialScreen(),
+          '/': (context) => const SplashScreen(),
           '/home': (context) => const HomeScreen(),
           '/order': (context) => const OrderScreen(),
           '/history': (context) => const HistoryScreen(),
